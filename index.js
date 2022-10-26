@@ -1,5 +1,8 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const cTable = require('console.table');
+const mysql = require('mysql2');
+
 
 inquirer
   .prompt([
@@ -25,29 +28,21 @@ inquirer
         name: 'last',
     },
     {
-        type: 'checkbox',
+        type: 'list',
         message: 'What is the role of the employee?',
         choices: ['Lead Sales', 'Sales Rep', 'Representative', 'Accountant', 'Troubleshooter', 'Expert', 'Paper Pusher'],
         name: 'roles',
     },
     {
-        type: 'checkbox',
+        type: 'list',
         message: 'Who is the manager of the employee?',
         choices: ['Michael Scott', 'Robert California', 'Deangelo Vickers', 'Charles Miner', 'Ed Truck'],
         name: 'managers',
     },
     {
-        type: 'checkbox',
+        type: 'list',
         message: "Which employee's role do you want to update?",
         choices: ['Dwight Schrute', 'Jim Halpert', 'Pam Halpert', 'Oscar Martinez', 'Angela Martin', 'Kevin Malone', 'Kelly Kapoor', 'Toby Flenderson', 'Shorts Guy', 'Nick Glasses'],
         name: 'employees',
     },
-  
-  ])
-  .then((data) => {
-    const filename = `${data.name.toLowerCase().split(' ').join('')}.json`;
-
-    fs.writeFile(filename, JSON.stringify(data, null, '\t'), (err) =>
-      err ? console.log(err) : console.log('Success!')
-    );
-  });
+  ]);
